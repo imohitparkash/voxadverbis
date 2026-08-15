@@ -1,0 +1,29 @@
+# Generated audio files
+*.mp3
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# VS 2022 project files
+.vs/
+*.pyproj
+*.pyproj.user
+*.sln
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Flask instance folder (if you use one later)
+instance/
+ 
+audio_cache/
