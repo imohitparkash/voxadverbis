@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOXADVERBIS - Text to Speech Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <main class="console" role="main">
+    <div class="rivet rivet--tl"></div>
+    <div class="rivet rivet--tr"></div>
+    <div class="rivet rivet--bl"></div>
+    <div class="rivet rivet--br"></div>
+
+    <header class="console__header">
+      <div class="header__title">
+        <span class="header__mark">&#9670;</span>
+        <h1>VOXADVERBIS</h1>
+      </div>
+      <div class="header__status">
+        <span class="light light--standby" id="statusLight"></span>
+        <span class="status__label" id="statusLabel">STANDBY</span>
+      </div>
+    </header>
+
+    <div class="console__body">
+
+      <section class="col col--main">
+        <div class="screen" aria-label="Text input">
+          <div class="screen__scanlines" aria-hidden="true"></div>
+          <textarea
+            id="textInput"
+            class="screen__input"
+            placeholder="AWAITING INPUT TEXT..."
+            maxlength="500"
+            aria-label="Text to convert to speech"
+          ></textarea>
+          <div class="screen__footer">
+            <span>CHARS</span>
+            <span id="charCount">000</span>
+            <span>/ 500</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="convertBtn" class="dial" type="button" aria-label="Convert text to speech">
+            <span class="dial__ring" aria-hidden="true"></span>
+            <span class="dial__label">CONVERT</span>
+          </button>
+
+          <button id="stopBtn" class="btn btn--stop" type="button" disabled aria-label="Stop playback">
+            <span class="btn__icon" aria-hidden="true">&#9632;</span>
+            STOP
+          </button>
+        </div>
+      </section>
+
+      <aside class="col col--side" aria-label="Voice settings">
+        <p class="side__heading">VOICE</p>
+
+        <div class="knob-group">
+          <button class="knob" id="pitchKnob" type="button" aria-label="Pitch control, decorative">
+            <span class="knob__indicator" aria-hidden="true"></span>
+          </button>
+          <span class="knob__label">PITCH</span>
+        </div>
+
+        <div class="knob-group">
+          <button class="knob" id="toneKnob" type="button" aria-label="Tone control, decorative">
+            <span class="knob__indicator" aria-hidden="true"></span>
+          </button>
+          <span class="knob__label">TONE</span>
+        </div>
+
+        <div class="switch-row">
+          <span class="switch-row__label">LOOP</span>
+          <button id="loopSwitch" class="flip-switch" type="button" aria-pressed="false" aria-label="Loop playback">
+            <span class="flip-switch__lever"></span>
+          </button>
+        </div>
+
+        <div class="switch-row">
+          <span class="switch-row__label">FILTER</span>
+          <button id="filterSwitch" class="flip-switch" type="button" aria-pressed="false" aria-label="Audio filter">
+            <span class="flip-switch__lever"></span>
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <section class="playback" id="playbackPanel" aria-label="Audio playback" hidden>
+      <div class="gauge" aria-hidden="true">
+        <svg viewBox="0 0 100 56" class="gauge__svg">
+          <path d="M6,50 A44,44 0 0,1 94,50" fill="none" stroke="#2a3142" stroke-width="4" />
+          <line id="gaugeNeedle" x1="50" y1="50" x2="50" y2="14" stroke="#ffb020" stroke-width="2" stroke-linecap="round" />
+          <circle cx="50" cy="50" r="4" fill="#ffb020" />
+        </svg>
+        <span class="gauge__label">LEVEL</span>
+      </div>
+
+      <button id="playToggle" class="toggle" type="button" aria-label="Play or pause audio">
+        <span class="toggle__knob"></span>
+      </button>
+
+      <a id="downloadTab" class="tab" href="#" download="voxadverbis.mp3" aria-label="Export audio file">
+        &#11123; EXPORT
+      </a>
+    </section>
+
+    <p class="console__hint" id="hintText">Enter text and press CONVERT to synthesize.</p>
+  </main>
+
+  <audio id="audioPlayer" hidden></audio>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
